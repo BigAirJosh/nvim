@@ -2,14 +2,12 @@
 -- configured for GO
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
-    -- Creates a beautiful debugger UI
+    -- debugger UI
     'rcarriga/nvim-dap-ui',
 
-    -- Installs the debug adapters for you
+    -- Installs the debug adapters
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
