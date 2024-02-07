@@ -12,7 +12,10 @@ or `<leader>s_` for Telescope search prompts.
 ## TODO:
 
 - [x] add vim-dispatch plugin
-- [ ] migrate plugins from init.lua to plugins directory
-- [ ] remap keybindings to feel more like LunarVim
-- [ ] create an options.lua config
-- [ ] create a keymaps.lua config
+- [x] migrate plugins from init.lua to plugins directory
+- [x] remap keybindings to feel more like LunarVim
+- [x] create an options.lua config
+- [x] create a keymaps.lua config
+- [ ] cleanup plugins and custom config
+- [ ] configure debug plugin
+- [ ] checkout oil plugin

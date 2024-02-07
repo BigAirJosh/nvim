@@ -9,5 +9,6 @@ return {
       component_separators = '|',
       section_separators = '',
     },
+    extensions = { 'nvim-tree', 'trouble', 'fugitive', 'lazy', 'nvim-dap-ui', 'quickfix' },
   },
 }

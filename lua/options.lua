@@ -45,4 +45,9 @@ vim.o.termguicolors = true
 vim.diagnostic.config({
   virtual_text = false,
   underline = false,
+
 })
+
+-- set dispatch tmux height
+vim.g.dispatch_tmux_height = 15
+vim.g.dispatch_quickfix_height = 15

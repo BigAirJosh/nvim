@@ -14,18 +14,21 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>ln', vim.lsp.buf.rename, '[L]anguage server re[N]ame')
+  nmap('<leader>la', vim.lsp.buf.code_action, '[L]anguage server code [A]ction')
+  nmap('<leader>lr', '<Cmd>LspRestart<CR>', '[L]anguage server code [R]estart')
+  nmap('<leader>lt', '<Cmd>TroubleToggle<CR>', '[L]anguage server [T]rouble toggle')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  -- nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]anguage server document [S]ymbols')
   -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<leader>ld', vim.lsp.buf.signature_help, '[L]anguage server Signature [D]ocumentation')
   -- TODO: I need to remap this because it's cool
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation') disabled because it clashes with tmux window navigation
 
@@ -53,7 +56,21 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  gopls = {},
+  gopls = {
+    buildFlags = { "-tags=acceptance" },
+    staticcheck = true,
+    -- Disalbing linksInHover may not be working as expected:
+    linksInHover = false,
+    usePlaceholders = true,
+    experimentalPostfixCompletions = true,
+    analyses = {
+      unusedparams = true,
+      shadow = true,
+      unusedwrite = true,
+      unusedresult = true,
+      nilness = true,
+    },
+  },
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
@@ -74,6 +91,15 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+capabilities.textDocument.completion.completionItem.snippetSupport = false
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits",
+  },
+}
+
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -91,3 +117,16 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+-- Diagnostic signs
+local signs = {
+  Error = " ",
+  Warn = "",
+  Hint = "",
+  Info = ""
+}
+
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
