@@ -1,3 +1,4 @@
+-- disabled for now
 return {
   "nvim-neotest/neotest",
   dependencies = {

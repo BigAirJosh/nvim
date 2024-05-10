@@ -14,7 +14,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', '<Cmd>:NvimTreeFindFileToggle<Cr>', { desc = 'Open  file tree' })
+vim.keymap.set('n', '<leader>e', '<Cmd>:NvimTreeFindFileToggle<Cr>', { desc = 'Open file tree' })
+-- vim.keymap.set('n', '<leader>e', '<Cmd>:Neotree toggle<Cr>', { desc = 'Open file tree' })
+vim.keymap.set('n', '<leader>E', '<Cmd>:Neotree git_status<Cr>', { desc = 'Open git status tree' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 vim.keymap.set('n', '<C-q>', function()
   vim.diagnostic.setloclist()
@@ -26,11 +28,13 @@ vim.keymap.set('n', ']b', '<Cmd>bnext<CR>', { desc = 'Go to next buffer' })
 vim.keymap.set('n', '<leader>c', '<Cmd>Bdelete<CR>', { desc = '[C]lose buffer' })
 
 -- Make using vim-dispatch
-vim.keymap.set('n', '<F13>', '<Cmd>:Make! %<CR>', { desc = 'Make the thing' })
-vim.keymap.set('n', '<C-F13>', '<Cmd>:Make! #<CR>', { desc = 'Make the alternate thing' })
-vim.keymap.set('n', '<leader>mm', '<Cmd>:Make! %<CR>', { desc = '[M]ake the current buffer' })
-vim.keymap.set('n', '<leader>mg', '<Cmd>:Make! ./%:p:.:h/...<CR>', { desc = '[M]ake [G]o' })
-vim.keymap.set('n', '<leader>ma', '<Cmd>:Make! #<CR>', { desc = '[M]ake the [A]lternate buffer' })
+vim.keymap.set('n', '<F13>', '<Cmd>:Make %<CR>', { desc = 'Make the thing' })
+vim.keymap.set('n', '<C-F13>', '<Cmd>:Make #<CR>', { desc = 'Make the alternate thing' })
+vim.keymap.set('n', '<leader>mm', '<Cmd>:Make %<CR>', { desc = '[M]ake the current buffer' })
+vim.keymap.set('n', '<leader>mg', '<Cmd>:Make ./%:p:.:h/...<CR>', { desc = '[M]ake [G]o' })
+vim.keymap.set('n', '<leader>ma', '<Cmd>:Make #<CR>', { desc = '[M]ake the [A]lternate buffer' })
+vim.keymap.set('n', '<leader>md', '<Cmd>:Make % --order defined<CR>', { desc = '[M]ake order [D]efined' })
+
 vim.keymap.set('n', '<leader>mc', '<Cmd>:cclose<CR>', { desc = '[M]ake [C]lose quickfix window' })
 vim.keymap.set('n', '<leader>mo', '<Cmd>:Copen<CR>', { desc = '[M]ake [O]open quickfix window' })
 

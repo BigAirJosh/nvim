@@ -51,7 +51,7 @@ require('lazy').setup({
   -- Treesitter
   require 'plugins.nvim-treesitter',
   -- Neotest for go
-  require 'plugins.neotest',
+  -- require 'plugins.neotest',
   -- tpopes projectionist
   require 'plugins.vim-projectionist',
   -- Autoformat code on save
@@ -203,6 +203,15 @@ require('lazy').setup({
     },
   },
   -- "tomoakley/circleci.nvim",
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    },
+  },
 }, {})
 
 -- [[ Setting options ]]
@@ -306,6 +315,19 @@ vim.keymap.set('n', '<leader>ft', '<Cmd>NvimTreeFindFileToggle<CR>', { desc = '[
 -- Configure convience keymaps
 vim.keymap.set('n', '<leader>w', '<Cmd>write<CR>', { desc = '[W]rite file' })
 vim.keymap.set('n', '<leader>gg', '<Cmd>LazyGit<CR>', { desc = 'Lazy[G]it' })
+
+
+-- Configure aerial
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

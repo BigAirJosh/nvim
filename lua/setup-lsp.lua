@@ -57,7 +57,7 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   gopls = {
-    buildFlags = { "-tags=acceptance" },
+    buildFlags = { "-tags=edenred_drats" },
     staticcheck = true,
     -- Disalbing linksInHover may not be working as expected:
     linksInHover = false,
@@ -80,6 +80,19 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+    },
+  },
+  java_language_server = {
+    handlers = {
+      ['client/registerCapability'] = function(err, result, ctx, config)
+        local registration = {
+          registrations = { result },
+        }
+        return vim.lsp.handlers['client/registerCapability'](err, registration, ctx, config)
+      end
+    },
+    java = {
+      -- classPath = { "./testapp-shared/target/classes", "./testapp-server/target/classes", "./testapp-client/target/classes" },
     },
   },
 }
