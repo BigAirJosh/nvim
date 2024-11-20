@@ -27,7 +27,8 @@ return {
 				treesitter_context = true,
 			},
 		})
-		vim.cmd.colorscheme 'catppuccin-macchiato'
+		-- vim.cmd.colorscheme 'catppuccin-macchiato'
+		vim.cmd.colorscheme 'catppuccin-frappe'
 
 		-- Hide all semantic highlights until upstream issues are resolved (https://github.com/catppuccin/nvim/issues/480)
 		for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do

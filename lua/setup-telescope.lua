@@ -1,3 +1,21 @@
+-- customize the picker window to display file then path
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "TelescopeResults",
+--   callback = function(ctx)
+--     vim.api.nvim_buf_call(ctx.buf, function()
+--       vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+--       vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+--     end)
+--   end,
+-- })
+--
+-- local function filenameFirst(_, path)
+--   local tail = vim.fs.basename(path)
+--   local parent = vim.fs.dirname(path)
+--   if parent == "." then return tail end
+--   return string.format("%s\t\t%s", tail, parent)
+-- end
+
 -- Setup Telescope
 require('telescope').setup {
   defaults = {
@@ -7,13 +25,26 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = { "vendor/.*", "node_modules/.*" },
+    file_ignore_patterns = { "vendor/.*", "node_modules/.*" }, --, ".git/*" },
+    -- path_display = filenameFirst,
+    path_display = {
+      filename_first = {
+        reverse_directories = false
+      },
+    },
   },
+  -- pickers = {
+  --   find_files = { path_display = filenameFirst },
+  --   git_status = { path_display = filenameFirst },
+  -- },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'search_dir_picker')
+pcall(require('telescope').load_extension, 'tmux')
+pcall(require('telescope').load_extension, 'rest')
+
 -- pcall(require('telescope').load_extension, 'circleci')
 
 -- See `:help telescope.builtin`

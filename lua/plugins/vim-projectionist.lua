@@ -2,6 +2,17 @@ return {
   "tpope/vim-projectionist",
   config = function()
     vim.g.projectionist_heuristics = {
+      -- js file test alternates
+      ["*.js"] = {
+        ["*.test.js"] = {
+          alternate = "{}.js",
+          type = "source",
+        },
+        ["*.js"] = {
+          alternate = "{}.test.js",
+          type = "test",
+        },
+      },
       -- go file test alternates
       ["*.go"] = {
         ["*_test.go"] = {
@@ -21,6 +32,14 @@ return {
         },
         ["app/*.rb"] = {
           alternate = "spec/{}_spec.rb",
+          type = "test",
+        },
+        ["spec/lib/*_spec.rb"] = {
+          alternate = "lib/{}.rb",
+          type = "source",
+        },
+        ["lib/*.rb"] = {
+          alternate = "spec/lib/{}_spec.rb",
           type = "test",
         },
       },
@@ -52,5 +71,6 @@ return {
       },
     }
     vim.keymap.set('n', '<leader>a', '<Cmd>A<CR>', { desc = '[A]lternate' })
+    vim.keymap.set('n', '<leader>A', '<Cmd>AV<CR>', { desc = '[A]lternate [V]ertical split' })
   end,
 }

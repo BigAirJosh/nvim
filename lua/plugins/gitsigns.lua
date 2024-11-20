@@ -3,15 +3,17 @@ return {
   'lewis6991/gitsigns.nvim',
   opts = {
     -- See `:help gitsigns.txt`
-    signs = {
+    signs      = {
       add = { text = '' }, -- +
       change = { text = '' }, -- ~
       delete = { text = '' }, --  _
       topdelete = { text = '' }, -- ‾
       changedelete = { text = '' }, -- ~
     },
+    signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
+    numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
 
-    on_attach = function(bufnr)
+    on_attach  = function(bufnr)
       vim.keymap.set('n', '<leader>hb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[B]lame line' })
       vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
         { buffer = bufnr, desc = '[P]review git hunk' })

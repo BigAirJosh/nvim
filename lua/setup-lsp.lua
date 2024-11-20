@@ -18,6 +18,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>la', vim.lsp.buf.code_action, '[L]anguage server code [A]ction')
   nmap('<leader>lr', '<Cmd>LspRestart<CR>', '[L]anguage server code [R]estart')
   nmap('<leader>lt', '<Cmd>TroubleToggle<CR>', '[L]anguage server [T]rouble toggle')
+  nmap('<leader>lD', vim.diagnostic.disable, '[L]anguage server [D]isable diagnostics')
+  nmap('<leader>le', vim.diagnostic.enable, '[L]anguage server [E]nable diagnostics')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -34,6 +36,7 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('gR', vim.lsp.buf.references, '[G]oto [R]eferences')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -41,10 +44,15 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- setup Java before LSP configuration
+require('java').setup()
+
+
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
+require('lspconfig').jdtls.setup({})
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -57,7 +65,6 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   gopls = {
-    buildFlags = { "-tags=edenred_drats" },
     staticcheck = true,
     -- Disalbing linksInHover may not be working as expected:
     linksInHover = false,
@@ -70,29 +77,12 @@ local servers = {
       unusedresult = true,
       nilness = true,
     },
+    buildFlags = { "-tags=acceptance" },
   },
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-    },
-  },
-  java_language_server = {
-    handlers = {
-      ['client/registerCapability'] = function(err, result, ctx, config)
-        local registration = {
-          registrations = { result },
-        }
-        return vim.lsp.handlers['client/registerCapability'](err, registration, ctx, config)
-      end
-    },
-    java = {
-      -- classPath = { "./testapp-shared/target/classes", "./testapp-server/target/classes", "./testapp-client/target/classes" },
     },
   },
 }
@@ -112,6 +102,19 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     "additionalTextEdits",
   },
 }
+-- detect workspace changes
+capabilities = vim.tbl_extend(
+  "error",
+  capabilities,
+  {
+    workspace = {
+      fileOperations = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = true,
+        },
+      },
+    },
+  })
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -141,5 +144,5 @@ local signs = {
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  vim.fn.sign_define(hl, { text = icon, texthl = hl }) --, numhl = hl })
 end

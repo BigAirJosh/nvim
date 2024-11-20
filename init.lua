@@ -42,10 +42,14 @@ require('lazy').setup({
   require 'plugins.indent-blankline',
   -- Code Commenting
   require 'plugins.comment',
+  -- Java
+  require 'plugins.nvim-java',
   -- LSP Configuration & Plugins
   require 'plugins.nvim-lspconfig',
   -- Autocompletion
   require 'plugins.nvim-cmp',
+  -- Copilot chat
+  require 'plugins.copilot-chat',
   -- Detect tabstop and shiftwidth automatically
   require 'plugins.vim-sleuth',
   -- Treesitter
@@ -212,6 +216,13 @@ require('lazy').setup({
       "nvim-tree/nvim-web-devicons"
     },
   },
+  -- vim-test
+  {
+    'vim-test/vim-test',
+  },
+  {
+    'rest-nvim/rest.nvim',
+  },
 }, {})
 
 -- [[ Setting options ]]
@@ -307,7 +318,8 @@ require 'setup-alpha-nvim'
 --   project_slug = 'github/deliveroo/orderweb'
 -- }
 
-vim.cmd.colorscheme "catppuccin-macchiato"
+-- vim.cmd.colorscheme "catppuccin-macchiato"
+vim.cmd.colorscheme "catppuccin-frappe"
 
 -- Configure NvimTree keymaps
 vim.keymap.set('n', '<leader>ft', '<Cmd>NvimTreeFindFileToggle<CR>', { desc = '[F]ile [T]ree' })
@@ -331,3 +343,23 @@ vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- set vim-test strategy to dispact
+vim.g["test#strategy"] = "dispatch"
+
+-- set background to transparent
+vim.cmd.highlight({ "Normal", "guibg=NONE" })
+vim.cmd.highlight({ "Normal", "ctermbg=NONE" })
+
+-- Prepend mise shims to PATH
+vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
+
+
+---@type rest.Opts
+vim.g.rest_nvim = {
+  -- ...
+  cookies = {
+    ---@type boolean Whether enable cookies support or not
+    enable = false,
+  },
+}

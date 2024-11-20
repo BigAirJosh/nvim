@@ -1,4 +1,4 @@
-# My Neovim configuration
+# My Neovim configuration:
 
 I have no shame in admitting, this Neovim configuration is based of the
 excellent [nvim-lua/kickstart](https://github.com/nvim-lua/kickstart.nvim).
@@ -19,3 +19,9 @@ or `<leader>s_` for Telescope search prompts.
 - [ ] cleanup plugins and custom config
 - [ ] configure debug plugin
 - [ ] checkout oil plugin
+
+
+and lets take a look at monitor wobble when the PC is off the desk?!
+not sure, what do you think?
+
+and how about now with the monitor back on the desck. Actually I think this might be a little less :D
