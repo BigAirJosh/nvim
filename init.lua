@@ -183,7 +183,7 @@ require('lazy').setup({
     },
   },
   { "AndrewRadev/splitjoin.vim" },
-  "ggandor/leap.nvim",
+  require 'plugins.flash',
   {
     "ThePrimeagen/refactoring.nvim",
     dependencies = {
@@ -302,9 +302,6 @@ require 'setup-harpoon'
 --     lsp_doc_border = true,        -- add a border to hover docs and signature help
 --   },
 -- })
-
--- setup leap
-require('leap').add_default_mappings()
 
 -- setup refactoring
 require('refactoring').setup {}
