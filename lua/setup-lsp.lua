@@ -18,7 +18,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>la', vim.lsp.buf.code_action, '[L]anguage server code [A]ction')
   nmap('<leader>lr', '<Cmd>LspRestart<CR>', '[L]anguage server code [R]estart')
   nmap('<leader>lt', '<Cmd>TroubleToggle<CR>', '[L]anguage server [T]rouble toggle')
-  nmap('<leader>lD', vim.diagnostic.disable, '[L]anguage server [D]isable diagnostics')
+  nmap('<leader>lD', function() vim.diagnostic.enable(false) end, '[L]anguage server [D]isable diagnostics')
   nmap('<leader>le', vim.diagnostic.enable, '[L]anguage server [E]nable diagnostics')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -87,9 +87,6 @@ local servers = {
   },
 }
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -121,6 +118,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = false,
 }
 
 mason_lspconfig.setup_handlers {

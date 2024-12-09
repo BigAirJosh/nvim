@@ -6,39 +6,39 @@ vim.keymap.set('n', '<leader>mv', function() verbose = not verbose end, { desc =
 -- [[ Configure Make on buffer attach ]]
 local vim_dispatch_group = vim.api.nvim_create_augroup('VimDispatchGroup', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd' }, {
-  callback = function()
-    if use_zeus then
-      vim.cmd [[
+	callback = function()
+		if use_zeus then
+			vim.cmd [[
       compiler rspec
       set makeprg=zeus\ rspec
       ]]
-    else
-      vim.cmd [[
+		else
+			vim.cmd [[
       compiler rspec
       set makeprg=bundle\ exec\ rspec
       ]]
-    end
-  end,
-  group = vim_dispatch_group,
-  pattern = '*.rb',
+		end
+	end,
+	group = vim_dispatch_group,
+	pattern = '*.rb',
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd' }, {
-  callback = function()
-    if verbose then
-      vim.cmd [[
+	callback = function()
+		if verbose then
+			vim.cmd [[
       compiler go
       set makeprg=go\ test -v
       ]]
-    else
-      vim.cmd [[
+		else
+			vim.cmd [[
       compiler go
       set makeprg=go\ test
       ]]
-    end
-  end,
-  group = vim_dispatch_group,
-  pattern = '*.go',
+		end
+	end,
+	group = vim_dispatch_group,
+	pattern = '*.go',
 })
 
 -- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd' }, {
@@ -52,5 +52,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd' }, {
 --   pattern = '*.java',
 -- })
 return {
-  'tpope/vim-dispatch'
+	{
+		'tpope/vim-dispatch'
+	},
 }
