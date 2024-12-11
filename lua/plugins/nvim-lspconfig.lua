@@ -33,10 +33,8 @@ return {
 					-- TODO: add buffersource completion and path source completion (also in the source config)
 					'L3MON4D3/LuaSnip',
 					'saadparwaiz1/cmp_luasnip',
-
 					-- Adds LSP completion capabilities
 					'hrsh7th/cmp-nvim-lsp',
-
 					-- Adds a number of user-friendly snippets
 					'rafamadriz/friendly-snippets',
 
@@ -66,7 +64,14 @@ return {
 						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 					})
 				end,
+				config = function()
+					require('config.nvim-cmp')
+				end,
 			},
 		},
+		config = function()
+			require('config.autoformat')
+			require('config.lspconfig')
+		end,
 	},
 }

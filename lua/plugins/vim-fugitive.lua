@@ -1,5 +1,8 @@
 return {
 	{
-		'tpope/vim-fugitive'
+		'tpope/vim-fugitive',
+		config = function()
+			require('config.vim-fugitive')
+		end,
 	},
 }

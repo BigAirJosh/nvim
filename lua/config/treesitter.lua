@@ -64,4 +64,19 @@ vim.defer_fn(function()
       -- },
     },
   }
+
+  -- treesitter keymaps
+  local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+
+  -- Repeat movement with ; and ,
+  -- ensure ; goes forward and , goes backward regardless of the last direction
+  vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+  vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+
+  local ts_move = require "nvim-treesitter.textobjects.move"
+
+  vim.keymap.set('n', ']b', function() ts_move.goto_next_start("@block.inner", "textobjects") end,
+    { desc = 'Go to next [b]lock' })
+  vim.keymap.set('n', '[b', function() ts_move.goto_previous_start("@block.inner", "textobjects") end,
+    { desc = 'Go to previous [b]lock' })
 end, 0)

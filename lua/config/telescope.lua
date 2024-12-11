@@ -19,19 +19,49 @@
 -- Setup Telescope
 require('telescope').setup {
   defaults = {
+    theme = "ivy",
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = { "vendor/.*", "node_modules/.*" }, --, ".git/*" },
+    file_ignore_patterns = { "vendor/.*", "node_modules/.*", ".git/*" },
     -- path_display = filenameFirst,
     path_display = {
       filename_first = {
         reverse_directories = false
       },
     },
+  },
+  pickers = {
+    buffers = {
+      theme = "ivy"
+    },
+    find_files = {
+      theme = "ivy"
+    },
+    live_grep = {
+      theme = "ivy"
+    },
+    grep_string = {
+      theme = "ivy"
+    },
+    git_files = {
+      theme = "ivy"
+    },
+    git_status = {
+      theme = "ivy"
+    },
+    help_tags = {
+      theme = "ivy"
+    },
+    tmux = {
+      theme = "ivy"
+    },
+  },
+  extensions = {
+    fzf = {},
   },
   -- pickers = {
   --   find_files = { path_display = filenameFirst },
@@ -75,7 +105,18 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>sp', function() require('search_dir_picker').search_dir() end,
   { desc = '[S]earch [P]ick directory' })
-
+vim.keymap.set('n', '<leader>sn', function()
+    require('telescope.builtin').find_files {
+      cwd = vim.fn.stdpath('config')
+    }
+  end,
+  { desc = '[S]earch [N]eovim config' })
+vim.keymap.set('n', '<leader>sl', function()
+    require('telescope.builtin').find_files {
+      cwd = vim.fn.stdpath('data')
+    }
+  end,
+  { desc = '[S]earch neovim [L]ibraries' })
 
 -- telescope tmux navigation keymaps
 vim.keymap.set('n', '<leader>sts', '<Cmd>:Telescope tmux sessions<CR>', { desc = '[S]earch [T]mux [S]essons' })

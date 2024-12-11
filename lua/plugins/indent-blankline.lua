@@ -5,6 +5,11 @@ return {
 		-- Enable `lukas-reineke/indent-blankline.nvim`
 		-- See `:help ibl`
 		main = 'ibl',
+		---@module "ibl"
+		---@type ibl.config
 		opts = {},
+		config = function()
+			require('config.indent-blankline')
+		end
 	},
 }
