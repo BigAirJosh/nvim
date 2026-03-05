@@ -1,4 +1,4 @@
-require('nvim-tree').setup({
+require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     width = 50,
@@ -15,9 +15,9 @@ require('nvim-tree').setup({
           untracked = "", --= "★",
           deleted = "", --= "",
           ignored = "", --= "◌",
-        }
-      }
-    }
+        },
+      },
+    },
   },
   diagnostics = {
     enable = true,
@@ -41,15 +41,16 @@ require('nvim-tree').setup({
 })
 
 -- [[ Focus current file in nvim-tree ]]
-local find_file_group = vim.api.nvim_create_augroup('NvimTreeFindFile', { clear = true })
-local tree_api = require "nvim-tree.api"
-vim.api.nvim_create_autocmd('BufEnter', {
+local find_file_group = vim.api.nvim_create_augroup("NvimTreeFindFile", { clear = true })
+local tree_api = require("nvim-tree.api")
+vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     tree_api.tree.find_file()
   end,
   group = find_file_group,
-  pattern = '*',
+  pattern = "*",
 })
 
 -- [[ Keymaps ]]
-vim.keymap.set('n', '<leader>e', '<Cmd>:NvimTreeFindFileToggle<Cr>', { desc = 'Open file tr[e]e' })
+vim.keymap.set("n", "<leader>e", "<Cmd>:NvimTreeFindFileToggle<Cr>", { desc = "Open file tr[e]e" })
+vim.keymap.set("n", "<leader>f", "<Cmd>:NvimTreeFocus<Cr>", { desc = "[F]ocus file tree" })

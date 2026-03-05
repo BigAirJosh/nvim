@@ -1,7 +1,7 @@
 return {
 	{
 		"j-hui/fidget.nvim",
-		tag = "v1.4.5",
+		-- tag = "v1.4.5",
 		event = { "BufEnter" },
 		-- config = function()
 		--   -- Turn on LSP, formatting, and linting status and progress information

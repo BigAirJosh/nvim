@@ -70,6 +70,24 @@ return {
 						alternate = "src/main/java/{}.java"
 					}
 				},
+				-- scala file test alternates, this is a little hacky
+				['build.sbt'] = {
+
+					-- projections for java
+					['src/main/scala/*.scala'] = {
+						type = "source",
+						alternate = { "src/test/scala/{}Test.scala", "src/test/scala/{}Spec.scala" },
+					},
+					['src/test/scala/*Test.scala'] = {
+						type = "test",
+						alternate = "src/main/scala/{}.scala"
+					},
+					['src/test/scala/*Spec.scala'] = {
+						type = "test",
+						alternate = "src/main/scala/{}.scala"
+					}
+				},
+
 			}
 			vim.keymap.set('n', '<leader>a', '<Cmd>A<CR>', { desc = '[A]lternate' })
 			vim.keymap.set('n', '<leader>A', '<Cmd>AV<CR>', { desc = '[A]lternate [V]ertical split' })

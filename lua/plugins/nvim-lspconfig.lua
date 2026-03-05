@@ -3,15 +3,16 @@
 return {
 	-- LSP Configuration & Plugins
 	{
-		'neovim/nvim-lspconfig',
+		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
-			'williamboman/mason.nvim',
-			'williamboman/mason-lspconfig.nvim',
+			{ "mason-org/mason.nvim", opts = {} },
+			"mason-org/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+			{ "j-hui/fidget.nvim",    tag = "legacy", opts = {} },
 
 			-- Additional lua configuration, makes nvim stuff amazing!
 			{
@@ -27,16 +28,16 @@ return {
 			},
 			-- Autocompletion
 			{
-				'hrsh7th/nvim-cmp',
+				"hrsh7th/nvim-cmp",
 				dependencies = {
 					-- Snippet Engine & its associated nvim-cmp source
 					-- TODO: add buffersource completion and path source completion (also in the source config)
-					'L3MON4D3/LuaSnip',
-					'saadparwaiz1/cmp_luasnip',
+					"L3MON4D3/LuaSnip",
+					"saadparwaiz1/cmp_luasnip",
 					-- Adds LSP completion capabilities
-					'hrsh7th/cmp-nvim-lsp',
+					"hrsh7th/cmp-nvim-lsp",
 					-- Adds a number of user-friendly snippets
-					'rafamadriz/friendly-snippets',
+					"rafamadriz/friendly-snippets",
 
 					-- Adds Copilot with completion support
 					{
@@ -46,11 +47,13 @@ return {
 						end,
 						dependencies = {
 							{
-								'zbirenbaum/copilot.lua',
+								"zbirenbaum/copilot.lua",
+								enabled = true,
 								config = function()
 									require("copilot").setup({
 										suggestion = { enabled = false },
 										panel = { enabled = false },
+										copilot_model = "gpt-41-copilot",
 									})
 								end,
 							},
@@ -65,13 +68,13 @@ return {
 					})
 				end,
 				config = function()
-					require('config.nvim-cmp')
+					require("config.nvim-cmp")
 				end,
 			},
 		},
 		config = function()
-			require('config.autoformat')
-			require('config.lspconfig')
+			require("config.autoformat")
+			require("config.lspconfig")
 		end,
 	},
 }

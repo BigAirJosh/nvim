@@ -5,6 +5,12 @@
 -- Switch for controlling whether you want autoformatting.
 --  Use :FormatToggle to toggle autoformatting on or off
 local format_is_enabled = true
+
+-- if the current working directory is named orderweb then set format_is_enabled to false
+if vim.fn.fnamemodify(vim.fn.getcwd(), ':t') == 'orderweb' then
+  format_is_enabled = false
+end
+
 vim.api.nvim_create_user_command('FormatToggle', function()
   format_is_enabled = not format_is_enabled
   print('Setting autoformatting to: ' .. tostring(format_is_enabled))

@@ -30,7 +30,8 @@ end, { desc = 'Open diagnostics list' })
 -- buffer navigation keymaps
 vim.keymap.set('n', '[B', '<Cmd>bprev<CR>', { desc = 'Go to previous [B]uffer' })
 vim.keymap.set('n', ']B', '<Cmd>bnext<CR>', { desc = 'Go to next [B]uffer' })
-vim.keymap.set('n', '<leader>c', '<Cmd>Bdelete<CR>', { desc = '[C]lose buffer' })
+vim.keymap.set('n', '<leader>c', '<Cmd>Bdelete<CR>', { desc = '[c]lose buffer' })
+vim.keymap.set('n', '<leader>C', '<Cmd>%Bdelete<CR>', { desc = '[C]lose all buffers' })
 
 -- vim.keymap.set('n', '<leader>e', '<Cmd>:Neotree toggle<Cr>', { desc = 'Open file tree' })
 vim.keymap.set('n', '<leader>E', '<Cmd>:Neotree git_status<Cr>', { desc = 'Open git status tree' })
@@ -38,11 +39,16 @@ vim.keymap.set('n', '<leader>E', '<Cmd>:Neotree git_status<Cr>', { desc = 'Open 
 vim.keymap.set('n', '[q', '<Cmd>:cprev<CR>', { desc = '[P]revious quickfix item' })
 vim.keymap.set('n', ']q', '<Cmd>:cnext<CR>', { desc = '[N]ext quickfix item' })
 
+-- Git keymaps
 vim.keymap.set('n', '<leader>gb', '<Cmd>:Gitsigns toggle_current_line_blame<CR>',
   { desc = '[G]it toggle current line [b]lame' })
+vim.keymap.set('n', '<leader>gc', '<Cmd>!circleci open<CR>', { desc = '[N]avigate [C]ircle CI open' })
+vim.keymap.set('n', '<leader>gP', '<Cmd>!gh pr create --web<CR>', { desc = '[N]avigate [P]ull request create' })
+vim.keymap.set('n', '<leader>gp', '<Cmd>!gh pr view --web<CR>', { desc = '[N]avigate [P]ull request view' })
 
 -- Window keymaps
 vim.keymap.set('n', '<leader>wb', '<Cmd>Barbecue toggle<CR>', { desc = '[W]indow [B]arbecue toggle' })
+
 
 
 -- document existing key chains
@@ -59,6 +65,8 @@ require('which-key').add({
   { "<leader>l_",  hidden = true },
   { "<leader>m",   group = "[M]ake" },
   { "<leader>m_",  hidden = true },
+  { "<leader>n",   group = "[N]eorg" },
+  { "<leader>n_",  hidden = true },
   { "<leader>r",   group = "[R]efactor" },
   { "<leader>r_",  hidden = true },
   { "<leader>s",   group = "[S]earch" },

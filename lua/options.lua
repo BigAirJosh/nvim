@@ -51,3 +51,6 @@ vim.diagnostic.config({
 -- set dispatch tmux height
 vim.g.dispatch_tmux_height = 15
 vim.g.dispatch_quickfix_height = 15
+
+-- set session defaults as per auto-session recommendations
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

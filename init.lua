@@ -26,26 +26,22 @@ require 'keymaps'
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
+-- local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+-- vim.api.nvim_create_autocmd('TextYankPost', {
+--   callback = function()
+--     vim.highlight.on_yank()
+--   end,
+--   group = highlight_group,
+--   pattern = '*',
+-- })
 
 vim.cmd.colorscheme "catppuccin-macchiato"
 -- vim.cmd.colorscheme "catppuccin-frappe"
 -- vim.cmd.colorscheme "catppuccin-mocha"
 
-
--- set vim-test strategy to dispact
-vim.g["test#strategy"] = "dispatch"
-
 -- set background to transparent
-vim.cmd.highlight({ "Normal", "guibg=NONE" })
-vim.cmd.highlight({ "Normal", "ctermbg=NONE" })
+-- vim.cmd.highlight({ "Normal", "guibg=NONE" })
+-- vim.cmd.highlight({ "Normal", "ctermbg=NONE" })
 
 -- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
